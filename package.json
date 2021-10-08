@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.13.3",
+    "koa-bodyparser": "^4.3.0",
     "koa-json": "^2.0.2"
   }
 }
