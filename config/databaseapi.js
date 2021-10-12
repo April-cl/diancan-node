@@ -10,6 +10,10 @@ let param = qs.stringify({
 
 let url = 'https://api.weixin.qq.com/cgi-bin/token?' + param
 
+let env = 'cloud1-6g8yjb3439a1e737'
+
+let AddUrl = 'https://api.weixin.qq.com/tcb/databaseadd?access_token='
+
 class getToken {
   constructor () {
   }
@@ -28,6 +32,20 @@ class getToken {
       throw new result(e, 500)
     }
   }
+
+  async posteve(dataUrl, query) {
+    try {
+      let token = await this.gettoken()
+      let data = await axios.post(dataUrl + token, {env, query})
+      if (data.data.errcode === 0) {
+        return data.data
+      } else {
+        throw '请求出错'
+      }
+    } catch(e) {
+      throw new result(e, 500)
+    }
+  }
 }
 
-module.exports = {getToken}
+module.exports = {getToken, AddUrl}
