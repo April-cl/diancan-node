@@ -14,6 +14,8 @@ let env = 'cloud1-6g8yjb3439a1e737'
 
 let AddUrl = 'https://api.weixin.qq.com/tcb/databaseadd?access_token='
 
+let Tripurl = 'https://api.weixin.qq.com/tcb/databasequery?access_token='
+
 class getToken {
   constructor () {
   }
@@ -21,14 +23,12 @@ class getToken {
   async gettoken() {
     try {
       let token = await axios.get(url)
-      console.log(token)
       if (token.status === 200) {
         return token.data.access_token
       } else {
         throw '获取 token 错误'
       }
     } catch (e) {
-      console.log(e)
       throw new result(e, 500)
     }
   }
@@ -48,4 +48,4 @@ class getToken {
   }
 }
 
-module.exports = {getToken, AddUrl}
+module.exports = {getToken, AddUrl, Tripurl}
