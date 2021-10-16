@@ -2,6 +2,7 @@ const result = require('../../config/result.js')
 const router = require('koa-router')()
 const {getToken, AddUrl, Tripurl} = require('../../config/databaseapi.js')
 const {regcheck} = require('../../config/checking')
+const {gentoken} = require('../../token/jwt.js')
 
 router.post('/register', async ctx => {
   let {account, password} = ctx.request.body
@@ -23,6 +24,10 @@ router.post('/register', async ctx => {
   } catch (e) {
     new result(ctx, '注册失败，服务器发生错误', 500)
   }
+})
+
+router.post('/login', async ctx => {
+  console.log(gentoken('1234567'))
 })
 
 module.exports = router.routes()
