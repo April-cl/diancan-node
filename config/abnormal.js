@@ -13,7 +13,7 @@ const abnormal = async (ctx, next) => {
     } else {
       console.log(err)
       ctx.body = {
-        msg: '服务器反生错误'
+        msg: '服务器发生错误'
       }
       ctx.status = 500
     }

@@ -17,7 +17,7 @@ class checking {
       'password': /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,20}$/
     }
     if(!reg[field].test(this.obj[num])){
-      throw new result(msg,202)
+      throw new result(msg, 202)
     }
   }
 }

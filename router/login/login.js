@@ -27,7 +27,20 @@ router.post('/register', async ctx => {
 })
 
 router.post('/login', async ctx => {
-  console.log(gentoken('1234567'))
+  let {account, password} = ctx.request.body
+  const query = `db.collection('business-acc').where({account:'${account}',password:'${password}'}).get()`
+  try {
+    const user = await new getToken().posteve(Tripurl, query)
+    if (user.data.length === 0) {
+      new result(ctx, '账号或密码有误', 202).answer()
+    } else {
+      const OBJ = JSON.parse(user.data[0])
+      console.log('111')
+      new result(ctx, '登录成功', 200, {token: gentoken(OBJ.uid)}).answer()
+    }
+  } catch (e) {
+    new result(ctx, '登录失败，服务器发生错误', 500).answer()
+  }
 })
 
 module.exports = router.routes()
