@@ -3,6 +3,7 @@ const router = require('koa-router')()
 const {getToken, AddUrl, Tripurl} = require('../../config/databaseapi.js')
 const {regcheck} = require('../../config/checking')
 const {gentoken} = require('../../token/jwt.js')
+const {Auth} = require('../../token/auth.js')
 
 router.post('/register', async ctx => {
   let {account, password} = ctx.request.body
@@ -41,6 +42,10 @@ router.post('/login', async ctx => {
   } catch (e) {
     new result(ctx, '登录失败，服务器发生错误', 500).answer()
   }
+})
+
+router.get('/ceshi', new Auth().m, async (ctx) => {
+  console.log(ctx.auth.uid)
 })
 
 module.exports = router.routes()

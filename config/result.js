@@ -12,6 +12,7 @@ class result {
       data: this.data,
       extra: this.extra
     }
+    this.ctx.status = this.code
   }
 }
 
