@@ -13,7 +13,10 @@ app.use(abnormal)
 
 const login = require('./router/login/login.js')
 
+const uploadres = require('./router/merchant-infor/infor.js')
+
 router.use('/api', login)
+router.use('/api', uploadres)
 
 app.use(router.routes()).use(router.allowedMethods())
 
