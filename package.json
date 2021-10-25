@@ -12,6 +12,7 @@
     "@koa/multer": "^3.0.0",
     "axios": "^0.22.0",
     "basic-auth": "^2.0.1",
+    "cos-nodejs-sdk-v5": "^2.10.5",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.3",
     "koa-bodyparser": "^4.3.0",
