@@ -10,13 +10,11 @@ class Auth {
   get m() {
     return async (ctx, next) => {
       const token = basicAuth(ctx.req)
-      console.log(token)
       if (!token || !token.name) {
         throw new result({errcode: '401', msg: '没有访问权限'}, 401)
       }
       try {
         var authcode = jwt.verify(token.name, security.secretKey)
-        console.log(authcode)
       } catch (e) {
         if (e.name === 'TokenExpiredError') {
           throw new result({errcode: '401', msg: '账号过期，请重新登录'}, 401)

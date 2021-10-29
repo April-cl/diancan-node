@@ -11,7 +11,6 @@ const abnormal = async (ctx, next) => {
       }
       ctx.status = err.code
     } else {
-      console.log(err)
       ctx.body = {
         msg: '服务器发生错误'
       }

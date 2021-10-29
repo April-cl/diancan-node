@@ -36,16 +36,11 @@ router.post('/login', async ctx => {
       new result(ctx, '账号或密码有误', 202).answer()
     } else {
       const OBJ = JSON.parse(user.data[0])
-      console.log('111')
-      new result(ctx, '登录成功', 200, {token: gentoken(OBJ.uid)}).answer()
+      new result(ctx,'登录成功',200,{token:gentoken(OBJ.uid)}).answer()
     }
   } catch (e) {
     new result(ctx, '登录失败，服务器发生错误', 500).answer()
   }
-})
-
-router.get('/ceshi', new Auth().m, async (ctx) => {
-  console.log(ctx.auth.uid)
 })
 
 module.exports = router.routes()

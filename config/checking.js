@@ -20,6 +20,17 @@ class checking {
       throw new result(msg, 202)
     }
   }
+  Arrfun (list, num) {
+    if (JSON.parse(this.obj[num]).length === 0) {
+      throw new result(list, 202)
+    }
+  }
+  Parameter (list) {
+    let bvc = this.obj.indexOf('')
+    if (bvc != -1) {
+      throw new result(list[bvc],202)
+    }
+  }
 }
 
 class regcheck extends checking {
@@ -30,4 +41,13 @@ class regcheck extends checking {
   }
 }
 
-module.exports = {regcheck}
+class shopinfor extends checking {
+  start() {
+    let arr = ['请输入店铺名词', '请输入店铺地址', '请上传店铺logo']
+    super.Errunder()
+    super.Parameter(arr)
+    super.Arrfun('请上传店铺logo', 2)
+  }
+}
+
+module.exports = {regcheck, shopinfor}
