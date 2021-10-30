@@ -14,7 +14,9 @@ let env = 'cloud1-6g8yjb3439a1e737'
 
 let AddUrl = 'https://api.weixin.qq.com/tcb/databaseadd?access_token='
 
-let Tripurl = 'https://api.weixin.qq.com/tcb/databasequery?access_token='
+let TripUrl = 'https://api.weixin.qq.com/tcb/databasequery?access_token='
+
+let UpdateUrl = 'https://api.weixin.qq.com/tcb/databaseupdate?access_token='
 
 class getToken {
   constructor () {
@@ -48,4 +50,4 @@ class getToken {
   }
 }
 
-module.exports = {getToken, AddUrl, Tripurl}
+module.exports = {getToken, AddUrl, TripUrl, UpdateUrl}

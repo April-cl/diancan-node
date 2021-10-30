@@ -1,6 +1,6 @@
 const result = require('../../config/result.js')
 const router = require('koa-router')()
-const {getToken, AddUrl, Tripurl} = require('../../config/databaseapi.js')
+const {getToken, AddUrl, TripUrl} = require('../../config/databaseapi.js')
 const {regcheck} = require('../../config/checking')
 const {gentoken} = require('../../token/jwt.js')
 const {Auth} = require('../../token/auth.js')
@@ -10,7 +10,7 @@ router.post('/register', async ctx => {
   new regcheck(ctx, account, password).start()
   const query = `db.collection('business-acc').where({account:'${account}'}).get()`
   try {
-    const user = await new getToken().posteve(Tripurl, query)
+    const user = await new getToken().posteve(TripUrl, query)
     if (user.data.length > 0) {
       new result(ctx, '已经注册过了', 202).answer()
     } else {
@@ -31,7 +31,7 @@ router.post('/login', async ctx => {
   let {account, password} = ctx.request.body
   const query = `db.collection('business-acc').where({account:'${account}',password:'${password}'}).get()`
   try {
-    const user = await new getToken().posteve(Tripurl, query)
+    const user = await new getToken().posteve(TripUrl, query)
     if (user.data.length === 0) {
       new result(ctx, '账号或密码有误', 202).answer()
     } else {
