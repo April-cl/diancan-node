@@ -28,4 +28,15 @@ router.post('/uploadshop', new Auth().m, async ctx => {
   }
 })
 
+router.get('/obtainshop', new Auth().m, async ctx => {
+  const query = `db.collection('shop-infor').get()`
+  try {
+    let res = await new getToken().posteve(Tripurl, query)
+    const data = res.data.map(item => {return JSON.parse(item)})
+    new result(ctx, 'SUCCESS', 200, data).answer()
+  } catch (e) {
+    new result(ctx, '提交失败，服务器发生错误', 500).answer()
+  }
+})
+
 module.exports = router.routes()
