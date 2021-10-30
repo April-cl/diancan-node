@@ -27,7 +27,7 @@ class checking {
   }
   Parameter (list) {
     let bvc = this.obj.indexOf('')
-    if (bvc != -1) {
+    if (bvc !== -1) {
       throw new result(list[bvc],202)
     }
   }
