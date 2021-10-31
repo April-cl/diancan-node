@@ -15,7 +15,7 @@ router.post('/uploadres', upload.single('file'), async ctx => {
 })
 
 router.post('/uploadshop', new Auth().m, async ctx => {
-  const {id, name, address, logo} = ctx.request.body
+  const {name, address, logo} = ctx.request.body
   new shopinfor(ctx, name, address, logo).start()
   let query = `db.collection('shop-infor').add({data:{name:'${name}',address:'${address}',logo:${logo}}})`
   try {
@@ -52,6 +52,21 @@ router.post('/modifyshop', new Auth().m, async ctx => {
 router.post('/addcategory', new Auth().m, async ctx => {
   const {category} = ctx.request.body
   new catecheck(ctx, category).start()
+  const cid = 'a' + new Date().getTime()
+  const query = `db.collection('dishes-category').where({label:'${category}'}).get()`
+  const cate = `db.collection('dishes-category').add({data:{value:'${category}',label:'${category}',cid:'${cid}',count:0,sele_quantity:0}})`
+  try {
+    const res = await new getToken().posteve(TripUrl, query)
+    console.log(res)
+    if (res.data.length > 0) {
+      new result(ctx, '该类目已存在', 202).answer()
+    } else {
+      await new getToken().posteve(AddUrl, cate)
+      new result(ctx, '添加成功').answer()
+    }
+  } catch (e) {
+    new result(ctx, '添加失败，服务器发生错误', 500).answer()
+  }
 })
 
 module.exports = router.routes()
