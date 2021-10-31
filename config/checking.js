@@ -61,4 +61,13 @@ class shopinfor extends checking {
   }
 }
 
-module.exports = {regcheck, shopinfor}
+class catecheck extends checking {
+  start() {
+    let arr = ['请输入菜品类目']
+    super.Errunder()
+    super.Parameter(arr)
+    super.Blank(arr)
+  }
+}
+
+module.exports = {regcheck, shopinfor, catecheck}

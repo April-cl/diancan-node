@@ -1,8 +1,6 @@
-const {shopinfor} = require('../../config/checking')
-
+const {shopinfor, catecheck} = require('../../config/checking.js')
 const {Auth} = require('../../token/auth.js')
-
-const result = require('../../config/result')
+const result = require('../../config/result.js')
 const {getToken, AddUrl, TripUrl, UpdateUrl} = require('../../config/databaseapi.js')
 const router = require('koa-router')()
 const {upload, codfun} = require('../../cos/cos.js')
@@ -49,6 +47,11 @@ router.post('/modifyshop', new Auth().m, async ctx => {
   } catch (e) {
     new result(ctx, '修改失败，服务器发生错误', 500).answer()
   }
+})
+
+router.post('/addcategory', new Auth().m, async ctx => {
+  const {category} = ctx.request.body
+  new catecheck(ctx, category).start()
 })
 
 module.exports = router.routes()
