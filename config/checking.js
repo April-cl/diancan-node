@@ -70,4 +70,13 @@ class catecheck extends checking {
   }
 }
 
-module.exports = {regcheck, shopinfor, catecheck}
+class unitcheck extends checking {
+  start() {
+    let arr = ['请输入自定义单位']
+    super.Errunder()
+    super.Parameter(arr)
+    super.Blank(arr)
+  }
+}
+
+module.exports = {regcheck, shopinfor, catecheck, unitcheck}
