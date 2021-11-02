@@ -9,9 +9,11 @@ router.get('/obtainunit', new Auth().m, async ctx => {
   const query = `db.collection('dishunit').get()`
   try {
     const res = await new getToken().posteve(TripUrl, query)
-    console.log(res)
+    const data = res.data.map(item => JSON.parse(item))
+    console.log(data)
+    new result(ctx, 'SUCCESS', 200, data).answer()
   } catch (e) {
-    console.log(e)
+    new result(ctx, '服务器发生错误', 500).answer()
   }
 })
 
