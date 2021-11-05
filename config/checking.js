@@ -35,7 +35,6 @@ class checking {
     let vbn = this.obj.filter(item => {
       return item.split(' ').join('').length === 0
     })
-    console.log(vbn)
     let bvc = this.obj.indexOf(vbn[0])
     if (bvc !== -1) {
       throw new result(list[bvc], 202)
@@ -79,4 +78,14 @@ class unitcheck extends checking {
   }
 }
 
-module.exports = {regcheck, shopinfor, catecheck, unitcheck}
+class putoncheck extends checking {
+  start() {
+    let arr = ['请输入菜品类目', '请输入菜品名称', '请输入菜品价格', '请选择菜品单位', '请上传菜品图片', '请上传所属类目的cid']
+    super.Errunder()
+    super.Parameter(arr)
+    super.Blank(arr)
+    super.Arrfun('请上传菜品图片', 4)
+  }
+}
+
+module.exports = {regcheck, shopinfor, catecheck, unitcheck, putoncheck}

@@ -57,7 +57,6 @@ router.post('/addcategory', new Auth().m, async ctx => {
   const cate = `db.collection('dishes-category').add({data:{value:'${category}',label:'${category}',cid:'${cid}',count:0,sele_quantity:0}})`
   try {
     const res = await new getToken().posteve(TripUrl, query)
-    console.log(res)
     if (res.data.length > 0) {
       new result(ctx, '该类目已存在', 202).answer()
     } else {
