@@ -54,4 +54,19 @@ router.post('/uploaddishes', new Auth().m, async ctx => {
   }
 })
 
+router.get('/obtaindishes', new Auth().m, async ctx => {
+  let {page} = ctx.query
+  let sk = page * 10
+  const query = `db.collection('dishes-data').orderBy('time', 'desc').limit(10).skip(${sk}).get()`
+  try {
+    const res = await new getToken().posteve(TripUrl, query)
+    const data = res.data.map(item => JSON.parse(item))
+    const total = {total:res.pager.Total}
+    const array = {...{result:data}, ...total}
+    new result(ctx, 'SUCCESS', 200, array).answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500)
+  }
+})
+
 module.exports = router.routes()
