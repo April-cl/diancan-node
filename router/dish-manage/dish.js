@@ -82,4 +82,23 @@ router.get('/fromsale', new Auth().m, async ctx => {
   }
 })
 
+router.post('/modifydishes', new Auth().m, async ctx => {
+  const {id, category, name, unitprice, unit, image, value, valueBefore} = ctx.request.body
+  new putoncheck(ctx, category, name, unitprice, unit, image, value).start()
+  let time = moment().utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
+  let query = `db.collection('dishes-data').doc('${id}').update({data:{
+    category:'${category}',name:'${name}',unitprice:${unitprice},unit:'${unit}',image:${image},quantity:0,onsale:true,cid:'${value}',time:'${time}'
+  }})`
+  let countBefore = `db.collection('dishes-category').where({cid:'${valueBefore}'}).update({data:{count:db.command.inc(-1)}})`
+  let countAfter = `db.collection('dishes-category').where({cid:'${value}'}).update({data:{count:db.command.inc(1)}})`
+  try {
+    await new getToken().posteve(UpdateUrl, countBefore)
+    await new getToken().posteve(UpdateUrl, query)
+    await new getToken().posteve(UpdateUrl, countAfter)
+    new result(ctx, '修改成功').answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
+  }
+})
+
 module.exports = router.routes()
