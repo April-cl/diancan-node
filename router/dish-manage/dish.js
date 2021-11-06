@@ -44,7 +44,7 @@ router.post('/uploaddishes', new Auth().m, async ctx => {
   let query = `db.collection('dishes-data').add({data:{
     category:'${category}',name:'${name}',unitprice:${unitprice},unit:'${unit}',image:${image},quantity:0,onsale:true,cid:'${value}',time:'${time}',monthlysale:0
   }})`
-  let count = `db.dollection('dishes-category').where({cid:'${value}'}).update({data:{count:db.command.inc(1)}})`
+  let count = `db.collection('dishes-category').where({cid:'${value}'}).update({data:{count:db.command.inc(1)}})`
   try {
     await new getToken().posteve(AddUrl, query)
     await new getToken().posteve(UpdateUrl, count)
@@ -66,6 +66,19 @@ router.get('/obtaindishes', new Auth().m, async ctx => {
     new result(ctx, 'SUCCESS', 200, array).answer()
   } catch (e) {
     new result(ctx, '服务器发生错误', 500)
+  }
+})
+
+router.get('/fromsale', new Auth().m, async ctx => {
+  const {id, value} = ctx.query
+  const query = `db.collection('dishes-data').doc('${id}').update({data:{onsale:false}})`
+  let count = `db.collection('dishes-category').where({cid:'${value}'}).update({data:{count:db.command.inc(-1)}})`
+  try {
+    await new getToken().posteve(UpdateUrl, query)
+    await new getToken().posteve(UpdateUrl, count)
+    new result(ctx, '下架成功').answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
   }
 })
 
