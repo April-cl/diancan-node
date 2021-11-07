@@ -4,13 +4,13 @@ const result = require('./handle.js')
 
 let param = qs.stringify({
   grant_type: 'client_credential',
-  appid: 'wxfc13ec009236656e',
-  secret: '01ff08a1e9d0354b5cfcfe002e2f1236'
+  appid: '需要修改',
+  secret: '需要修改'
 })
 
 let url = 'https://api.weixin.qq.com/cgi-bin/token?' + param
 
-let env = 'cloud1-6g8yjb3439a1e737'
+let env = '需要修改'
 
 let AddUrl = 'https://api.weixin.qq.com/tcb/databaseadd?access_token='
 

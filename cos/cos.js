@@ -2,13 +2,13 @@ const multer = require('@koa/multer')
 const COS = require('cos-nodejs-sdk-v5')
 
 var cos = new COS({
-  SecretId: 'AKID5xZu0pOgiTyC9qGPHtGL9hz0lGVUCdoj',
-  SecretKey: 'h8JDqEMEqBF2YomUw71f7JEsFLBk25sO',
+  SecretId: '需要修改',
+  SecretKey: '需要修改',
   Protocol: 'https:'
 })
 
-let Bucket = 'diancan-1307921259'
-let Region = 'ap-guangzhou'
+let Bucket = '需要修改'
+let Region = '需要修改'
 let codfun = function (filename, path) {
   return new Promise((resolve, reject) => {
     cos.uploadFile({
