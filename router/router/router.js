@@ -17,10 +17,11 @@ router.get('/obtainorder', new Auth().m, async ctx => {
     delete param.transac_status
   }
   let OBJ = JSON.stringify(param)
-  const query = `db.collection('order-data').where(${OBJ}).orderBy('order_time', 'desc').limit(10).skip(${sk}).get()`
+  const query = `db.collection('order-data').where(${OBJ}).orderBy('order_time', 'desc').field({menu: false}).limit(10).skip(${sk}).get()`
   try {
     const res = await new getToken().posteve(TripUrl, query)
     const data = res.data.map(item => JSON.parse(item))
+    console.log(data)
     const total = {total: res.pager.Total}
     const array = {...{result: data}, ...total}
     new result(ctx, 'SUCCESS', 200., array).answer()
