@@ -21,10 +21,21 @@ router.get('/obtainorder', new Auth().m, async ctx => {
   try {
     const res = await new getToken().posteve(TripUrl, query)
     const data = res.data.map(item => JSON.parse(item))
-    console.log(data)
     const total = {total: res.pager.Total}
     const array = {...{result: data}, ...total}
     new result(ctx, 'SUCCESS', 200., array).answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
+  }
+})
+
+router.get('/vieworder', new Auth().m, async ctx => {
+  let {id} = ctx.query
+  const query = `db.collection('order-data').doc('${id}').field({menu: true}).get()`
+  try {
+    const res = await new getToken().posteve(TripUrl, query)
+    const data = res.data.map(item => JSON.parse(item))
+    new result(ctx, 'SUCCESS', 200, data[0].menu).answer()
   } catch (e) {
     new result(ctx, '服务器发生错误', 500).answer()
   }

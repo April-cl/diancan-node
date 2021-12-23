@@ -14,7 +14,7 @@ app.use(abnormal)
 const login = require('./router/login/login.js')
 const uploadres = require('./router/merchant-infor/infor.js')
 const dish = require('./router/dish-manage/dish.js')
-const order = require('./router/router/router.js')
+const order = require('./router/order/order.js')
 
 router.use('/api', login)
 router.use('/api', uploadres)
