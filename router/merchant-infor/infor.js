@@ -54,7 +54,7 @@ router.post('/addcategory', new Auth().m, async ctx => {
   new catecheck(ctx, category).start()
   const cid = 'a' + new Date().getTime()
   const query = `db.collection('dishes-category').where({label:'${category}'}).get()`
-  const cate = `db.collection('dishes-category').add({data:{value:'${category}',label:'${category}',cid:'${cid}',count:0,sele_quantity:0}})`
+  const cate = `db.collection('dishes-category').add({data:{value:'${category}',label:'${category}',cid:'${cid}',count:0,sale_quantity:0}})`
   try {
     const res = await new getToken().posteve(TripUrl, query)
     if (res.data.length > 0) {

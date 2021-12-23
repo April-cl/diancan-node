@@ -14,10 +14,12 @@ app.use(abnormal)
 const login = require('./router/login/login.js')
 const uploadres = require('./router/merchant-infor/infor.js')
 const dish = require('./router/dish-manage/dish.js')
+const order = require('./router/router/router.js')
 
 router.use('/api', login)
 router.use('/api', uploadres)
 router.use('/api', dish)
+router.use('/api', order)
 
 app.use(router.routes()).use(router.allowedMethods())
 
