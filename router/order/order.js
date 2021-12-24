@@ -41,4 +41,18 @@ router.get('/vieworder', new Auth().m, async ctx => {
   }
 })
 
+router.get('/receiving', new Auth().m, async  ctx => {
+  let {id} = ctx.query
+  const query = `db.collection('order-data').doc('${id}').update({data:{order_receiving:'rec_order'}})`
+  try {
+    await new getToken().posteve(UpdateUrl, query)
+    new result(ctx, '已接单，快上菜吧').answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
+
+  }
+})
+
+
+
 module.exports = router.routes()
