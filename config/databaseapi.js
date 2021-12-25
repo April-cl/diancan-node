@@ -18,6 +18,8 @@ let TripUrl = 'https://api.weixin.qq.com/tcb/databasequery?access_token='
 
 let UpdateUrl = 'https://api.weixin.qq.com/tcb/databaseupdate?access_token='
 
+let Subscribe = 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token='
+
 class getToken {
   constructor () {
   }
@@ -45,6 +47,23 @@ class getToken {
         throw '请求出错'
       }
     } catch(e) {
+      throw new result(e, 500)
+    }
+  }
+
+  async subscribe(touser, data) {
+    try {
+      let token = await this.gettoken()
+      let OBJ = {
+        touser,
+        data,
+        template_id: '86PH_DZpVKd_5L0dNAqxzlbwCcTHbR7IQrjcxh0OuH8',
+        page: 'pages/my-order/my-order',
+        miniprogram_state: 'developer'
+      }
+      let colldata = await axios.post(Subscribe + token, OBJ)
+      return 'success'
+    } catch (e) {
       throw new result(e, 500)
     }
   }

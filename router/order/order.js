@@ -6,6 +6,7 @@ const {Auth} = require('../../token/auth')
 const {upload, codfun} = require('../../cos/cos')
 const moment = require('moment')
 moment.locale('zh-cn')
+const Price = require('e-commerce_price')
 
 router.get('/obtainorder', new Auth().m, async ctx => {
   let {page, transac_status} = ctx.query
@@ -53,6 +54,23 @@ router.get('/receiving', new Auth().m, async  ctx => {
   }
 })
 
-
+router.get('/checkout', async ctx => {
+  let {id, openid, sett_amount, order_no} = ctx.query
+  let newmoney = Price(Number(sett_amount))
+  let time = moment().utcOffset(8).format('YYYY-MM-DD HH:mm:ss')
+  let subscribe = {
+    'amount1': {'value': newmoney},
+    'time2': {'value': time},
+    'character_string3': {'value': order_no}
+  }
+  const query = `db.collection('order-data').doc('${id}').update({data:{transac_status:'success'}})`
+  try {
+    await new getToken().subscribe(openid, subscribe)
+    await new getToken().posteve(UpdateUrl, query)
+    new result(ctx, '结账成功').answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
+  }
+})
 
 module.exports = router.routes()
