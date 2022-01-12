@@ -23,6 +23,20 @@ let codfun = function (filename, path) {
     })
   })
 }
+let buffer = function (filename, path) {
+  return new Promise((resolve, reject) => {
+    cos.putObject({
+      Bucket,
+      Region,
+      Key: filename,
+      Body: Buffer.from(path)
+    }).then(res => {
+      resolve(res.Location)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -37,4 +51,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-module.exports = {upload, codfun}
+module.exports = {upload, codfun, buffer}

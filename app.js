@@ -15,11 +15,13 @@ const login = require('./router/login/login.js')
 const uploadres = require('./router/merchant-infor/infor.js')
 const dish = require('./router/dish-manage/dish.js')
 const order = require('./router/order/order.js')
+const code = require('./router/qr-code/code.js')
 
 router.use('/api', login)
 router.use('/api', uploadres)
 router.use('/api', dish)
 router.use('/api', order)
+router.use('/api', code)
 
 app.use(router.routes()).use(router.allowedMethods())
 

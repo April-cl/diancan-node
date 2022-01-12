@@ -88,4 +88,13 @@ class putoncheck extends checking {
   }
 }
 
-module.exports = {regcheck, shopinfor, catecheck, unitcheck, putoncheck}
+class postcode extends checking {
+  start() {
+    let arr = ['桌号不能为空']
+    super.Errunder()
+    super.Parameter(arr)
+    super.Blank(arr)
+  }
+}
+
+module.exports = {regcheck, shopinfor, catecheck, unitcheck, putoncheck, postcode}

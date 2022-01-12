@@ -20,6 +20,8 @@ let UpdateUrl = 'https://api.weixin.qq.com/tcb/databaseupdate?access_token='
 
 let Subscribe = 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token='
 
+let Qrcode = 'https://api.weixin.qq.com/wxa/getwxacode?access_token='
+
 class getToken {
   constructor () {
   }
@@ -63,6 +65,17 @@ class getToken {
       }
       let colldata = await axios.post(Subscribe + token, OBJ)
       return 'success'
+    } catch (e) {
+      throw new result(e, 500)
+    }
+  }
+
+  async qrcode(number) {
+    let token = await this.gettoken()
+    let OBJ = JSON.stringify({path: 'pages/index/index?number' + number})
+    try {
+      let colldata = await axios.post(Qrcode + token, OBJ, {responseType: 'arraybuffer'})
+      return colldata
     } catch (e) {
       throw new result(e, 500)
     }
