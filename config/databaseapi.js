@@ -72,7 +72,7 @@ class getToken {
 
   async qrcode(number) {
     let token = await this.gettoken()
-    let OBJ = JSON.stringify({path: 'pages/index/index?number' + number})
+    let OBJ = JSON.stringify({path: 'pages/index/index?number=' + number})
     try {
       let colldata = await axios.post(Qrcode + token, OBJ, {responseType: 'arraybuffer'})
       return colldata
