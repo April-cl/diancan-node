@@ -45,4 +45,47 @@ router.get('/getqrcode', new Auth().m, async ctx => {
   }
 })
 
+router.get('/salesvolume', new Auth().m, async ctx => {
+  try {
+    let arr = [6, 5, 4, 3, 2, 1, 0]
+    let catedays = arr.map((item)=>{
+      return moment().utcOffset(8).subtract(item,'days').format('YYYY-MM-DD')
+    })
+    let str = JSON.stringify(catedays)
+    const query = `db.collection('seven_day_sales').where({time:db.command.in(${str})}).orderBy('time','asc').field({time:true,sales_value:true}).get()`
+    const res = await new getToken().posteve(TripUrl, query)
+    const data = res.data.map(item => {
+      return {
+        sales_value: JSON.parse(item).sales_value,
+        time: JSON.parse(item).time,
+        unix: moment(JSON.parse(item).item).unix()
+      }
+    })
+    let days = catedays.map(item => {
+      return {
+        sales_value: 0,
+        time: item,
+        unix: moment(item).unix()
+      }
+    })
+    let ab = {}
+    let obj ={}
+    let removal = [...data, ...days].reduce((prev, item) => {
+      if (!obj[item.time]) {
+        prev.push(item)
+        obj[item.time] = true
+      }
+      return prev
+    }, [])
+    let res_sort = removal.sort((A, B) => {
+      return (A.unix - B.unix)
+    })
+    new result(ctx, 'SUCCESS', 200, res_sort).answer()
+  } catch (e) {
+    new result(ctx, '服务器发生错误', 500).answer()
+  }
+
+})
+
+
 module.exports = router.routes()
