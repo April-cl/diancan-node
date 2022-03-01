@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # Copy local code to the container image.
-COPY ../点餐代码001/点餐代码001/diancan-node ./
+COPY . ./
 
 # Run the web service on container startup.
 CMD [ "npm", "test" ]
