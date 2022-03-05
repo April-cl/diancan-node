@@ -58,7 +58,7 @@ router.get('/salesvolume', new Auth().m, async ctx => {
       return {
         sales_value: JSON.parse(item).sales_value,
         time: JSON.parse(item).time,
-        unix: moment(JSON.parse(item).item).unix()
+        unix: moment(JSON.parse(item).time).unix()
       }
     })
     let days = catedays.map(item => {
@@ -68,7 +68,6 @@ router.get('/salesvolume', new Auth().m, async ctx => {
         unix: moment(item).unix()
       }
     })
-    let ab = {}
     let obj ={}
     let removal = [...data, ...days].reduce((prev, item) => {
       if (!obj[item.time]) {
